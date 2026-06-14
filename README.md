@@ -153,8 +153,6 @@ Convert from Markdown to PDF with the tool of your choice (e.g., `md2pdf.py`, Pa
   rules rather than real-world access-control behavior.
 - The after-hours distribution is uniform by design, so the project's
   after-hours rule is not validated here.
-- Effect sizes (Cramér's V, Cohen's d) should be reported alongside p-values
-  to avoid over-interpreting statistical significance.
 
 
 ## License
