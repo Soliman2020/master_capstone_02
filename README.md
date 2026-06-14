@@ -115,8 +115,17 @@ project_02_statistical_analysis/
 │   ├── viz2_confidence_by_event.png
 │   └── viz3_access_by_hour.png
 └── src/
-    └── __init__.py                        # placeholder module
+    ├── __init__.py                        # module marker
+    ├── constants.py                       # SEED and output-path constants
+    └── generators.py                      # deterministic synthetic data generator
 ```
+
+### Source files
+
+| File | Purpose | Run command |
+|---|---|---|
+| `src/constants.py` | Defines `SEED = 42`, output paths, and directory helpers used by the generator. | Imported by `generators.py` |
+| `src/generators.py` | Deterministically generates `surveillance_events` and `access_logs` Parquet/CSV files in `data/processed/`. | `python src/generators.py` |
 
 ## Limitations
 
