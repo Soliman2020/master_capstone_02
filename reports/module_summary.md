@@ -52,6 +52,16 @@ Yes, restricted zones show a *slightly* higher denial rate, but the effect is so
 
 ![Access log volume by hour of day](viz3_access_by_hour.png)
 
+### Visual Comparison and Trade-offs
+
+| Visualization | Strength | Limitation | Rule-engine implication |
+|---|---|---|---|
+| Access outcome by zone | Shows proportional denial rates | Hides absolute counts; effect size negligible | Zone restrictiveness should be a minor modifier only |
+| Confidence by event type | Reveals clear distributional separation | Does not quantify the mean difference | Strong primary signal; validate the 0.85 threshold |
+| Access by hour | Validates time-of-day input distribution | Synthetic uniform timestamps | Add role-aware schedules before trusting after-hours flags |
+
+**Best standalone signal**: Confidence by event type, because it is backed by the largest statistical effect (t(778) = 7.852, Δ ≈ 0.21).
+
 ---
 
 ## Limitations

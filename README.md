@@ -29,9 +29,9 @@ scores, unknown outcomes) that were cleaned in Project 01.
 2. **Descriptive statistics** — `describe(include="all")`, event-type counts,
    site counts, access-outcome counts, zone counts.
 3. **Visualizations** — three saved plots in `reports/`:
-   - `viz1_access_by_zone.png` — access-outcome rate by zone type
-   - `viz2_confidence_by_event.png` — confidence-score distribution by event type
-   - `viz3_access_by_hour.png` — access-log volume by hour of day
+   - `viz1_access_by_zone.png` — access-outcome rate by zone type (proportional, but hides absolute counts)
+   - `viz2_confidence_by_event.png` — confidence-score distribution by event type (strongest standalone signal)
+   - `viz3_access_by_hour.png` — access-log volume by hour of day (uniform by design; needs role-aware validation)
 4. **Hypothesis tests**:
    - Chi-square test of independence: zone type vs. access outcome
    - Independent-samples t-test: intrusion vs. normal-motion confidence
@@ -48,11 +48,12 @@ scores, unknown outcomes) that were cleaned in Project 01.
   The graph in `reports/viz1_access_by_zone.png` shows a marginally lower
   denial rate in restricted zones than in unrestricted zones, confirming that
   the signal is too weak to drive the rule engine on its own.
-- **Intrusion vs. normal motion confidence**: t(778) = 7.852,
-  *p* = 1.36 × 10⁻¹⁴, Δ ≈ 0.21. Strong separation supports using confidence as
-  a discriminative feature. The mean intrusion confidence (0.825) is slightly
-  below the `confidence > 0.85` threshold, so that cutoff needs separate
-  precision/recall validation.
+- **Visual comparison**: The confidence-by-event box plot is the strongest
+  standalone signal (clear distributional separation + large t-test effect).
+  The zone-type bar chart is the weakest (small proportional difference,
+  negligible Cramér's V). The hour-of-day chart is needed for operational
+  context but cannot validate the after-hours rule because the generator
+  samples timestamps uniformly.
 - **Hour-of-day distribution**: approximately uniform in the synthetic data;
   after-hours (17:00–23:00) is 28.9% of logs. The after-hours rule is not
   validated by this dataset because the generator samples timestamps uniformly.

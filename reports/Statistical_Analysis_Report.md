@@ -132,9 +132,15 @@ The distribution is approximately uniform across hours. The after-hours window (
 
 ### Cross-Visual Comparison
 
-- **Viz 1** (Access outcome by zone type) motivates the chi-square test via a normalized stacked bar chart. The bar chart hides absolute counts; see the contingency table above.
-- **Viz 2** (Confidence by event type) is a box plot exposing distribution shapes that support the t-test.
-- **Viz 3** (Access volume by hour) grounds the "after-hours" rule.
+Each visualization answers a different analytical question, and the three together create a layered decision-support picture for the rule engine.
+
+| Visualization | Best for | What it reveals | Weakness / trade-off |
+|---|---|---|---|
+| **Viz 1** — Access outcome by zone type (stacked bar) | Showing *proportional* outcome differences between restricted and unrestricted zones | Restricted zones have a marginally lower denial rate than unrestricted zones | Normalization hides absolute counts; cannot show whether the difference is meaningful without the chi-square test |
+| **Viz 2** — Confidence by event type (box plot) | Exposing the *shape and spread* of a continuous variable across groups | Intrusion and loitering events have higher and tighter confidence distributions than normal motion; non-overlapping quartiles support the t-test | Does not quantify the mean difference directly — the t-test provides that |
+| **Viz 3** — Access volume by hour (bar) | Grounding the time-of-day rule used downstream | Volume is approximately uniform; after-hours (17:00–23:00) is 28.9% of traffic | The synthetic generator samples timestamps uniformly, so this chart validates the rule's input distribution but not its real-world accuracy |
+
+**Comparative conclusion**: Viz 2 is the strongest standalone signal because it shows both a clear distributional separation and is backed by a large t-test effect. Viz 1 is the weakest because the proportional difference is small and the chi-square effect size is negligible (Cramér's V ≈ 0.02). Viz 3 is necessary for operational context but, on this synthetic data, cannot prove or disprove the after-hours risk rule. The rule engine should weight classifier confidence heavily, treat zone restrictiveness as a minor modifier, and add role-aware scheduling before relying on after-hours flags.
 
 ### Limitations and Bias
 
