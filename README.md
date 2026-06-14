@@ -45,9 +45,9 @@ scores, unknown outcomes) that were cleaned in Project 01.
 
 - **Zone type vs. access outcome**: χ²(1, N=9,173) = 4.491, *p* = 0.0341,
   Cramér's V = 0.0221. Statistically significant but practically negligible.
-  The two restricted zones (`SITE-001::ZONE-D`, `SITE-002::ZONE-D`) show a
-  marginally higher denial rate, but the signal is too weak to drive the rule
-  engine on its own.
+  The graph in `reports/viz1_access_by_zone.png` shows a marginally lower
+  denial rate in restricted zones than in unrestricted zones, confirming that
+  the signal is too weak to drive the rule engine on its own.
 - **Intrusion vs. normal motion confidence**: t(778) = 7.852,
   *p* = 1.36 × 10⁻¹⁴, Δ ≈ 0.21. Strong separation supports using confidence as
   a discriminative feature. The mean intrusion confidence (0.825) is slightly
@@ -110,7 +110,11 @@ project_02_statistical_analysis/
 │       ├── surveillance_events.csv
 │       ├── access_logs.parquet
 │       └── access_logs.csv
-├── reports/                               # exported visualizations
+├── reports/                               # exported visualizations and reports
+│   ├── Statistical_Analysis_Report.md   # full written report (markdown)
+│   ├── Statistical_Analysis_Report.pdf  # full written report (PDF)
+│   ├── module_summary.md                  # concise module summary (markdown)
+│   ├── module_summary.pdf                 # concise module summary (PDF)
 │   ├── viz1_access_by_zone.png
 │   ├── viz2_confidence_by_event.png
 │   └── viz3_access_by_hour.png
@@ -127,6 +131,22 @@ project_02_statistical_analysis/
 | `src/constants.py` | Defines `SEED = 42`, output paths, and directory helpers used by the generator. | Imported by `generators.py` |
 | `src/generators.py` | Deterministically generates `surveillance_events` and `access_logs` Parquet/CSV files in `data/processed/`. | `python src/generators.py` |
 
+## Reports
+
+- The report content is also available in `Statistical_Analysis_Report.md` and
+  `module_summary.md` for easy editing and PDF conversion.
+
+| File | Format | Audience |
+|---|---|---|
+| `reports/Statistical_Analysis_Report.md` | Markdown | Technical reviewers; source for PDF conversion |
+| `reports/Statistical_Analysis_Report.pdf` | PDF | Formal submission / portfolio |
+| `reports/module_summary.md` | Markdown | Technical + non-technical readers; source for PDF conversion |
+| `reports/module_summary.pdf` | PDF | Concise submission / portfolio |
+
+Convert from Markdown to PDF with the tool of your choice (e.g., `md2pdf.py`, Pandoc, or a word processor).
+
+---
+
 ## Limitations
 
 - All data is synthetic. Significant p-values reflect the generator's explicit
@@ -135,6 +155,7 @@ project_02_statistical_analysis/
   after-hours rule is not validated here.
 - Effect sizes (Cramér's V, Cohen's d) should be reported alongside p-values
   to avoid over-interpreting statistical significance.
+
 
 ## License
 
