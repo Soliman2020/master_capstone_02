@@ -158,6 +158,17 @@ Each visualization answers a different analytical question, and the three togeth
 
 ---
 
+## Non-Technical Explanation of Findings
+
+For stakeholders who are not statisticians, here is what the analysis means in plain language:
+
+- **Restricted zones are not meaningfully more likely to deny access.** We tested whether being in a restricted zone changes the chance of an access request being denied. The test found a statistically significant link, but the real-world impact is tiny — so tiny that it should not be used by itself to decide whether an incident is serious. A security rule that treats "restricted zone" as a strong risk signal would produce too many weak or misleading alerts.
+- **The AI camera is much more confident when it sees an actual intrusion.** When the surveillance system flags an event as an intrusion, its confidence score is, on average, about 21 percentage points higher than for ordinary motion events. The difference is large and consistent. This means confidence is a reliable clue for the rule engine: high-confidence intrusion alerts deserve closer attention.
+- **After-hours traffic is evenly spread, so time-of-day rules need context.** Access activity is spread fairly evenly across the day in this synthetic dataset, with about 29% happening in the after-hours window. That means simply flagging everything after 5 p.m. would catch a lot of normal behavior. Time-based alerts should also check the person's role or scheduled access, not just the clock.
+- **Bottom line for operations.** The most trustworthy standalone signal today is the model's own confidence on intrusion events. Zone restrictiveness and after-hours timing are useful only as supporting context, not as primary triggers. Before the system is used in production, the `confidence > 0.85` cutoff should be tested for precision and recall, and a bias audit should be added to make sure night-shift workers and contractors are not unfairly flagged.
+
+---
+
 ## Summary of Findings and Challenges
 
 ### Key Findings
