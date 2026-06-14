@@ -1,3 +1,6 @@
 # Ignore virtual environment directories
 venv
 p2_venv
+
+# Ignore Python cache files
+__pycache__
